@@ -29,7 +29,7 @@ def count_parameters(model):
     print(f"Total Trainable Params: {total_params}")
     return total_params
 
-def train(opt, show_number = 2, amp=False):
+def train(opt, show_number = 13, amp=False):
     """ dataset preparation """
     if not opt.data_filtering_off:
         print('Filtering the images containing characters which are not in opt.character')
@@ -172,6 +172,7 @@ def train(opt, show_number = 2, amp=False):
     scaler = GradScaler()
     t1= time.time()
         
+    count = 0
     while(True):
         # train part
         optimizer.zero_grad(set_to_none=True)
@@ -200,7 +201,9 @@ def train(opt, show_number = 2, amp=False):
             scaler.step(optimizer)
             scaler.update()
         else:
+            count += 1
             image_tensors, labels = train_dataset.get_batch()
+            print(f'Batch number: {count}')
             image = image_tensors.to(device)
             text, length = converter.encode(labels, batch_max_length=opt.batch_max_length)
             batch_size = image.size(0)
@@ -226,7 +229,7 @@ def train(opt, show_number = 2, amp=False):
             t1=time.time()
             elapsed_time = time.time() - start_time
             # for log
-            with open(f'./saved_models/{opt.experiment_name}/log_train.txt', 'a') as log:
+            with open(f'./saved_models/{opt.experiment_name}/log_train.txt', 'a', encoding='utf-8') as log:
                 model.eval()
                 with torch.no_grad():
                     valid_loss, current_accuracy, current_norm_ED, preds, confidence_score, labels,\

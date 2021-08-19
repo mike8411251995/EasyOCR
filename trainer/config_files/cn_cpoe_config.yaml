@@ -3,12 +3,12 @@ symbol: "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ €"
 lang_char: '固始E議醫液創自器N局隔測法X給性染餘眼喉露科路縣院透捐衛百主齡暴冷U及續身絡印i讀積址皮滲簽符每刀乾限後府O數小檢Z二召話腦機藥白m貝度開據公需理別警對忌空睛應量房冒導統斷示態d協語五兩床疾用健臨排做收u育靜耗）材力h他要設近拷換S室圖胃天造曾牙東初歷燒胞脫煎師針註驗率遺經Cr診施中照析電像束為等咳W程執頸術通題F月求流技定炎磨R影尿助效切指一六條pV兒妊童順顯姻知備宮說第插動T處K份間素混壓嗜邊查病凝療q異反易使已週隊畫學傳因站央巴入國結滴付置犬wb證範事水請復y次傷列l員片教營務充里屬文球折較紅道護囑人前受號e光否婚目預氧建抹袋行停況其稱張領劑料告疹發金史狂桿規暫分ｂ破卡成寬頭腔最安過臟社I子政放淨內碳轉意苗位娠費敏構脈t在具血象是加期管姓同（新H起抗申疫適呼細特治持菌單追者關送源s抽件型深代方速美保石會雜腹星k不服支時相腮返裝v吸本與生狀盡序化氣類值家訖交痘x個斯口原合德就糖胸絲沙團輸險計審面地居胎留溶係複住聯注補式殊諮級感fD：B急價的零維四G途手腎鏈流項部接大上縫非名毒帶依患由穴輪M濃離比症養全癌物濾射心工編品述肝日容a解醉外麻檔體肺c首藏風作記禁劃重高z徑來歸o採P它考種所紮三線見問之長包年參英粉點替L標案總判系儀膏立側A引除g樣介簡n表貧骨活詢存報明碼'
 experiment_name: 'cn_cpoe'
 train_data: 'all_data'
-valid_data: 'all_data/cn_cpoe_val'
+valid_data: 'all_data/cn_cpoe_val_real'
 manualSeed: 1111
 workers: 1 #!
 batch_size: 32 #32
 num_iter: 300000
-valInterval: 20000
+valInterval: 1000 #!
 saved_model: '' #'saved_models/en_filtered/iter_300000.pth'
 FT: False
 optim: False # default is Adadelta
