@@ -105,3 +105,6 @@ ENV/
 
 #virtual env
  .vscode/
+
+# data
+trainer/all_data

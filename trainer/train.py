@@ -146,7 +146,7 @@ def train(opt, show_number = 2, amp=False):
 
     """ final options """
     # print(opt)
-    with open(f'./saved_models/{opt.experiment_name}/opt.txt', 'a') as opt_file:
+    with open(f'./saved_models/{opt.experiment_name}/opt.txt', 'a', encoding='utf-8') as opt_file:
         opt_log = '------------ Options -------------\n'
         args = vars(opt)
         for k, v in args.items():
@@ -280,3 +280,35 @@ def train(opt, show_number = 2, amp=False):
             print('end the training')
             sys.exit()
         i += 1
+
+
+if __name__ == '__main__':    
+    import os
+    import torch.backends.cudnn as cudnn
+    import yaml
+    from utils import AttrDict
+    import pandas as pd
+
+    cudnn.benchmark = True
+    cudnn.deterministic = False
+
+    def get_config(file_path):
+        with open(file_path, 'r', encoding='utf-8') as stream:
+            opt = yaml.safe_load(stream)
+        opt = AttrDict(opt)
+        if opt.lang_char == 'None':
+            characters = ''
+            for data in opt['select_data'].split('-'):
+                csv_path = os.path.join(opt['train_data'], data, 'labels.csv')
+                df = pd.read_csv(csv_path, sep='^([^,]+),', engine='python', usecols=['filename', 'words'], keep_default_na=False)
+                all_char = ''.join(df['words'])
+                characters += ''.join(set(all_char))
+            characters = sorted(set(characters))
+            opt.character= ''.join(characters)
+        else:
+            opt.character = opt.number + opt.symbol + opt.lang_char
+        os.makedirs(f'./saved_models/{opt.experiment_name}', exist_ok=True)
+        return opt
+
+    opt = get_config("config_files/cn_cpoe_config.yaml")
+    train(opt, amp=False)
